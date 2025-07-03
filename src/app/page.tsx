@@ -1,103 +1,177 @@
-import Image from "next/image";
+import Mosaico from '@/components/Mosaico/Mosaico';
+import Image from 'next/image';
+import categoriasGatos from '@/helpers/categorias-gatos';
+import categoriasPerros from '@/helpers/categorias-perros';
+import Link from 'next/link';
+import CarrouselProductosPerros from '@/components/CarrouselProductosPerros/CarrouselProductosPerros';
+import CarrouselProductosGatos from '@/components/CarrouselProductosGatos/CarrouselProductosGatos';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+   return (
+      <div className="bg-gray-200 flex flex-col items-center w-screen">
+         <div className="flex flex-col items-center w-[40%] mx-auto gap-7 py-12">
+            <Image src="/logo.png" alt="Phopet" width={500} height={100} />
+            <h2 className="text-orange-500 px-20 text-center font-semibold font-(family-name:--font-open-sans)">
+               ¡Haz de tu mascota la estrella! Convierte fácilmente cada foto en
+               una obra de arte y crea recuerdos inolvidables de tu amigo
+               peludo.
+            </h2>
+         </div>
+         {/* =================== MOSAICO ============================= */}
+         <div className="w-screen">
+            <div className="w-[95%] overflow-hidden mx-auto flex flex-col items-center gap-12">
+               <Mosaico />
+               <div className="bg-orange-400/65 flex items-center justify-between gap-5 text-white mb-10 w-90 p-2 py-4 rounded-full">
+                  <p className="font-(family-name:--font-open-sans) font-bold text-sm ps-4">
+                     OBTEN 15 FOTOS
+                     <br />
+                     DE TU MASCOTA
+                  </p>
+                  <p className="font-(family-name:--font-open-sans) font-bold text-2xl">
+                     $600
+                  </p>
+                  <button className="bg-orange-500 p-3 rounded-full hover:cursor-pointer hover:brightness-120">
+                     LO QUIERO
+                  </button>
+               </div>
+            </div>
+         </div>
+         {/* =================== TIENDA ============================= */}
+         <div className="w-screen mt-20">
+            <div className="flex flex-col items-center gap-5">
+               <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[8rem]">
+                  TIENDA
+               </h2>
+               <h3 className="text-black text-xl mt-5">Categorias Perros</h3>
+               <div className="flex justify-center gap-8">
+                  {categoriasPerros.map((categoria, index) => (
+                     <Link href="" key={index} className="hover:cursor-pointer">
+                        <div className="">
+                           <Image
+                              src={categoria.imageUrl}
+                              alt={categoria.nombre}
+                              width={100}
+                              height={100}
+                           />
+                           <p className="text-black text-center">
+                              {categoria.nombre}
+                           </p>
+                        </div>
+                     </Link>
+                  ))}
+               </div>
+               <h3 className="text-black text-xl mt-5">Categorias Gatos</h3>
+               <div className="flex justify-center gap-8">
+                  {categoriasGatos.map((categoria, index) => (
+                     <Link href="" key={index} className="hover:cursor-pointer">
+                        <div className="">
+                           <Image
+                              src={categoria.imageUrl}
+                              alt={categoria.nombre}
+                              width={100}
+                              height={100}
+                           />
+                           <p className="text-black text-center">
+                              {categoria.nombre}
+                           </p>
+                        </div>
+                     </Link>
+                  ))}
+               </div>
+            </div>
+         </div>
+         {/* =================== CARROUSELES DE PRODUCTOS ============================= */}
+         <div className="w-screen">
+            <div className="w-[71%] mx-auto p-2">
+               <CarrouselProductosPerros />
+               <CarrouselProductosGatos />
+            </div>
+         </div>
+         {/* =================== PUBLICIDAD ============================= */}
+         <div className="w-screen">
+            <div className="w-[71%] h-78 relative mx-auto p-2 mt-20">
+               <Image
+                  src="/promo-hills.png"
+                  alt="Promo"
+                  fill
+                  className="object-contain"
+               />
+            </div>
+         </div>
+         {/* =================== FOTOS COMO FUNCIONA ============================= */}
+         <div className="w-screen">
+            <div className="flex flex-col items-center mt-20">
+               <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[6rem]">
+                  FOTOS
+               </h2>
+               <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[6rem]">
+                  COMO FUNCIONA
+               </h2>
+               <div className="w-[75%] mx-auto flex justify-center gap-15">
+                  <div className="flex flex-col items-center basis-1/3">
+                     <Image
+                        src="/fotos1.png"
+                        alt="Como Funciona"
+                        width={356}
+                        height={403}
+                     />
+                     <div className="bg-orange-500 text-white rounded-full p-2 w-15 aspect-square  font-semibold text-2xl flex justify-center items-center">
+                        1
+                     </div>
+                     <h2 className="font-(family-name:--font-open-sans) text-orange-500 font-bold text-xl mt-7 mb-10">
+                        Sube las fotos de tu mascota
+                     </h2>
+                     <p className="font-(family-name:--font-open-sans) text-orange-500 text-md font-semibold text-center">
+                        Entrena tu modelo de ia subiendo algunas fotos recientes
+                        de tu mascota. Entre 10 y 20 fotos
+                     </p>
+                  </div>
+                  <div className="flex flex-col items-center basis-1/3">
+                     <Image
+                        src="/fotos2.png"
+                        alt="Como Funciona"
+                        width={356}
+                        height={403}
+                     />
+                     <div className="bg-orange-500 text-white rounded-full p-2 w-15 aspect-square  font-semibold text-2xl flex justify-center items-center">
+                        2
+                     </div>
+                     <h2 className="font-(family-name:--font-open-sans) text-orange-500 font-bold text-xl mt-7 mb-10">
+                        Elige un Álbum
+                     </h2>
+                     <p className="font-(family-name:--font-open-sans) text-orange-500 text-md font-semibold text-center">
+                        Selecciona un álbum de nuestra extensa lista para crear
+                        imágenes impresionantes.
+                     </p>
+                  </div>
+                  <div className="flex flex-col items-center basis-1/3">
+                     <Image
+                        src="/fotos3.png"
+                        alt="Como Funciona"
+                        width={356}
+                        height={403}
+                     />
+                     <div className="bg-orange-500 text-white rounded-full p-2 w-15 aspect-square  font-semibold text-2xl flex justify-center items-center">
+                        3
+                     </div>
+                     <h2 className="font-(family-name:--font-open-sans) text-orange-500 font-bold text-xl mt-7 mb-10">
+                        Descargar y Usar
+                     </h2>
+                     <p className="font-(family-name:--font-open-sans) text-orange-500 text-md font-semibold text-center">
+                        Obtén tu paquete de fotos personalizadas y comienza a
+                        usarlas en tu teléfono, carteles o donde quieras.
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         {/* =================== TEMAS ============================= */}
+         <div className="w-screen flex flex-col">
+            <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[6rem] text-center">
+               TEMAS
+            </h2>
+            <div></div>
+         </div>
+      </div>
+   );
 }
