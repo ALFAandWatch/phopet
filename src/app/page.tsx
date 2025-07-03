@@ -5,6 +5,7 @@ import categoriasPerros from '@/helpers/categorias-perros';
 import Link from 'next/link';
 import CarrouselProductosPerros from '@/components/CarrouselProductosPerros/CarrouselProductosPerros';
 import CarrouselProductosGatos from '@/components/CarrouselProductosGatos/CarrouselProductosGatos';
+import AlbumCard from '@/components/AlbumCard/AlbumCard';
 
 export default function Home() {
    return (
@@ -82,7 +83,7 @@ export default function Home() {
          </div>
          {/* =================== CARROUSELES DE PRODUCTOS ============================= */}
          <div className="w-screen">
-            <div className="w-[71%] mx-auto p-2">
+            <div className="w-258 mx-auto p-2">
                <CarrouselProductosPerros />
                <CarrouselProductosGatos />
             </div>
@@ -170,7 +171,11 @@ export default function Home() {
             <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[6rem] text-center">
                TEMAS
             </h2>
-            <div></div>
+            <div className="flex flex-col">
+               <div className="flex">
+                  <AlbumCard />
+               </div>
+            </div>
          </div>
       </div>
    );
