@@ -3,18 +3,19 @@ import Image from 'next/image';
 const AlbumCard = () => {
    return (
       <>
-         <div className="bg-white rounded-md flex">
-            <div className="relative h-[100%] w-40">
+         <div className="bg-white w-55 aspect-[3/2] rounded-md flex justify-start p-2 shrink-0">
+            <div className="h-full">
                <Image
                   src="/suenos.png"
                   alt="Portada"
-                  fill
+                  width={74}
+                  height={50}
                   className="object-contain"
                />
             </div>
-            <div>
-               <h2 className="text-orange-400">ALBUM</h2>
-               <h2 className="text-orange-400">Sueños</h2>
+            <div className="px-2">
+               <h2 className="text-orange-400 text-xs font-bold">ALBUM</h2>
+               <h2 className="text-orange-400 text-md font-bold">Sueños</h2>
             </div>
          </div>
       </>

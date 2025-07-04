@@ -37,6 +37,7 @@ body {
 }
 
 #sliderMosaico {
-   animation: slideLeft 40s linear infinite;
+   animation: slideLeft 30s linear infinite;
    width: max-content;
+   display: flex;
 }

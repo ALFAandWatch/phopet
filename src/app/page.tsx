@@ -167,13 +167,111 @@ export default function Home() {
             </div>
          </div>
          {/* =================== TEMAS ============================= */}
-         <div className="w-screen flex flex-col">
+         <div className="w-screen flex flex-col pt-20">
             <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[6rem] text-center">
                TEMAS
             </h2>
-            <div className="flex flex-col">
-               <div className="flex">
+            <div className="flex flex-col w-300 mx-auto gap-5">
+               <div className="flex justify-center gap-4">
                   <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+               </div>
+               <div className="flex justify-center gap-5">
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+               </div>
+               <div className="flex justify-center gap-5">
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+                  <AlbumCard />
+               </div>
+            </div>
+         </div>
+         {/* =================== MAS ALLA DE LA IMAGEN ============================= */}
+         <div className="w-screen my-20">
+            <h2 className="font-(family-name:--font-bowlby-one) text-orange-300 text-[6rem] text-center px-20">
+               MAS ALLÁ <br /> DE LA IMAGEN
+            </h2>
+            <p className="font-(family-name:--font-open-sans) text-orange-500 text-md font-semibold text-center px-100 my-10">
+               Convierte las imágenes de tu mascota en más que solo recuerdos
+               digitales. Desde impresionantes obras de arte para la pared hasta
+               mercancía personalizada y regalos personalizados, las fotos de tu
+               mascota pueden convertirse en hermosos tesoros del mundo real que
+               atesorarás para siempre.
+            </p>
+            <div className="flex justify-center flex-nowrap px-40 gap-3">
+               <Image
+                  src="/MA1.png"
+                  alt="Mas Allá de la Imagen"
+                  width={800}
+                  height={400}
+                  className="object-contain mx-auto basis-1/4"
+               />
+               <Image
+                  src="/MA2.png"
+                  alt="Mas Allá de la Imagen"
+                  width={800}
+                  height={400}
+                  className="object-contain mx-auto basis-1/4"
+               />
+               <Image
+                  src="/MA3.png"
+                  alt="Mas Allá de la Imagen"
+                  width={800}
+                  height={400}
+                  className="object-contain mx-auto basis-1/4"
+               />
+               <Image
+                  src="/MA4.png"
+                  alt="Mas Allá de la Imagen"
+                  width={800}
+                  height={400}
+                  className="object-contain mx-auto basis-1/4"
+               />
+            </div>
+         </div>
+         {/* =================== MAS ALLA DE LA IMAGEN ============================= */}
+         <div className="w-screen bg-white px-40">
+            <div className="flex justify-center">
+               <div className="flex flex-col w-[65%] gap-4 py-10">
+                  <h2 className="font-(family-name:--font-bowlby-one) text-orange-500 text-[6rem]/25 font-semibold">
+                     PAQUETE DE BIENVENIDA POR SOLO
+                  </h2>
+                  <h2 className="font-(family-name:--font-bowlby-one) text-orange-300 text-[6rem] font-semibold line-h">
+                     $600
+                  </h2>
+                  <p className="font-(family-name:--font-open-sans) text-orange-500 text-sm font-semibold my-5 pr-98">
+                     ¡Prueba nuestro Paquete de Bienvenida por solo $600!
+                     Entrena el perfil de tu mascota y descarga 15 fotos de
+                     cualquier álbum con imágenes impresionantes de calidad de
+                     estudio.
+                  </p>
+                  <Link
+                     href=""
+                     className="bg-orange-500 text-white w-80 font-(family-name:--font-open-sans) text-center font-bold p-3 py-5 rounded-full hover:cursor-pointer hover:brightness-120"
+                  >
+                     COMPRAR PAQUETE DE BIENVENIDA
+                  </Link>
+                  <p className="text-orange-500">
+                     <span className="mr-2">•</span>Sin suscripciones solo 1
+                     pago
+                  </p>
+               </div>
+               <div className="flex flex-col justify-end items-end w-[35%]">
+                  <Image
+                     src="/group1.png"
+                     alt="Paquete de Fotos Personalizadas"
+                     width={450}
+                     height={80}
+                     className="pb-20"
+                  />
                </div>
             </div>
          </div>

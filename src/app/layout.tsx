@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Open_Sans, Bowlby_One_SC } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar/Navbar';
+import Footer from '@/components/Footer/Footer';
 
 const openSans = Open_Sans({
    variable: '--font-open-sans',
@@ -31,6 +32,7 @@ export default function RootLayout({
          >
             <Navbar />
             {children}
+            <Footer />
          </body>
       </html>
    );

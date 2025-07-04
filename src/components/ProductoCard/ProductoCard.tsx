@@ -18,7 +18,7 @@ const ProductoCard = ({ producto, index }: ProductoCardProps) => {
    return (
       <>
          <div className="bg-white p-3 w-[80%] rounded-md flex flex-col gap-4">
-            <div className="relative w-40 h-40 shrink-0">
+            <div className="relative w-41 h-40 shrink-0">
                <Image
                   src={imagenUrl}
                   alt="Producto"

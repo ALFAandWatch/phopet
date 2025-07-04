@@ -3,7 +3,7 @@ import Image from 'next/image';
 const ContenidoMosaico = () => {
    return (
       <>
-         <div className="flex flex-col gap-4">
+         <div className="flex flex-col gap-4 w-full">
             <div className="relative w-100 aspect-[4/5]">
                <Image
                   src="/mosaico/imagen1.png"
