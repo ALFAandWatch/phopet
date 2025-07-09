@@ -54,10 +54,12 @@ export default function AdminLayout({
                         <h2 className="2xl:p-1">PRODUCTOS</h2>
                         <ul className="font-semibold">
                            <li className="text-red-400 2xl:p-1">
-                              <Link href="">Productos</Link>
+                              <Link href="/dashboard/productos">Productos</Link>
                            </li>
                            <li className="text-red-400 2xl:p-1">
-                              <Link href="">Categorias</Link>
+                              <Link href="/dashboard/categorias">
+                                 Categorias
+                              </Link>
                            </li>
                            <li className="text-red-400 2xl:p-1">
                               <Link href="">Atributos</Link>
