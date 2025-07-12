@@ -7,6 +7,7 @@
 
 @theme {
    --color-naranja-main: #ff6b00;
+   --color-verde-ok: #37a073;
 }
 
 @theme inline {
@@ -29,7 +30,20 @@ body {
    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* MIO */
+/* Ocultar flechas en inputs type="number" (Chrome, Safari, Edge) */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+}
+
+/* Ocultar flechas en Firefox */
+input[type='number'] {
+   -moz-appearance: textfield;
+}
+
+/*************** MIO ************************************/
+/********************************************************/
 
 @keyframes slideLeft {
    0% {

@@ -30,8 +30,8 @@ export default function AdminLayout({
          <body
             className={`${openSans.variable} ${bowlbyOneSC.variable} ${poppins.variable} antialiased`}
          >
-            <div className="flex">
-               <aside className="w-90 2xl:w-140 bg-orange-100 text-orange-400 font-(family-name:--font-open-sans) text-md 2xl:text-3xl p-4 text h-screen flex justify-end">
+            <div className="flex relative">
+               <aside className="w-90 2xl:w-140 bg-orange-100 text-orange-400 font-(family-name:--font-open-sans) text-md 2xl:text-3xl p-4 text h-screen flex justify-end sticky top-0">
                   <div className="w-50 2xl:w-70 flex flex-col justify-between mt-7 2xl:mt-10 mb-12 2xl:mb-20 2xl:me-15">
                      <div className="w-full h-15 2xl:h-25 relative">
                         <Image

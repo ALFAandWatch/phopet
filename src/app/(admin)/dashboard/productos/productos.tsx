@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState } from 'react';
 
 const Productos = () => {
@@ -6,9 +7,17 @@ const Productos = () => {
 
    return (
       <div>
-         <h1 className="text-naranja-main text-6xl 2xl:text-8xl font-(family-name:--font-bowlby-one)">
-            PRODUCTOS
-         </h1>
+         <div className="flex items-end">
+            <h1 className="text-naranja-main text-6xl 2xl:text-8xl font-(family-name:--font-bowlby-one)">
+               PRODUCTOS
+            </h1>
+            <Link
+               href="/dashboard/nuevoProducto"
+               className="bg-naranja-main text-white font-(family-name:--font-open-sans) rounded-full text-sm font-semibold py-2 px-5 ms-8 mb-2 hover:brightness-115"
+            >
+               Agregar Nuevo
+            </Link>
+         </div>
          {/********************** NAV FILTROS *************************/}
          <nav aria-label="Filtros de Productos">
             <ul className="flex gap-4 text-black font-(family-name:--font-open-sans) font-semibold mt-5">
