@@ -46,7 +46,7 @@ export default function AdminLayout({
                         <h2 className="2xl:p-1">IMAGENES</h2>
                         <ul className="font-semibold">
                            <li className="text-red-400 2xl:p-1">
-                              <Link href="">Biblioteca</Link>
+                              <Link href="/dashboard/imagenes">Biblioteca</Link>
                            </li>
                         </ul>
                      </div>
@@ -62,7 +62,7 @@ export default function AdminLayout({
                               </Link>
                            </li>
                            <li className="text-red-400 2xl:p-1">
-                              <Link href="">Atributos</Link>
+                              <Link href="/dashboard/atributos">Atributos</Link>
                            </li>
                            <li className="text-red-400 2xl:p-1">
                               <Link href="">Testimonios</Link>
