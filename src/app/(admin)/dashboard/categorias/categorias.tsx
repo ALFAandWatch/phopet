@@ -54,7 +54,7 @@ export default function Categorias() {
 
    const handleBorrarCategoria = (id: number) => {
       axiosInstance
-         .delete(`categorias/borrarCategoria/${id}`)
+         .delete(`/categorias/borrarCategoria/${id}`)
          .then((response) => {
             console.log('Categoría eliminada:', response.data);
             fetchCategorias();

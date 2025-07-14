@@ -1,32 +1,75 @@
 'use client';
 import { AtributoType } from '@/types/atributo';
-import { ErrorMessage, Field, Formik } from 'formik';
+import { ErrorMessage, Field, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { validateNuevoAtributo } from '../../../../utils/validateNuevoAtributo';
 import axiosInstance from '@/services/axiosInstance';
+import Swal from 'sweetalert2';
 
 const Atributos = () => {
    const [atributos, setAtributos] = useState<AtributoType[]>([]);
+   const [formSubmitted, setFormSubmitted] = useState(false);
+   const [atributoBeingEdited, setAtributoBeingEdited] = useState<
+      number | null
+   >(null);
+   const [edicionValores, setEdicionValores] = useState('');
+
+   console.log(atributoBeingEdited);
 
    const fetchAtributos = () => {
       axiosInstance
          .get('atributos/listarAtributos')
          .then((response) => {
-            setAtributos(response.data);
+            setAtributos(response.data.data);
          })
          .catch((error) => {
             console.log(error);
          });
    };
 
-   const handleSubmit = () => {};
+   const handleSubmit = (
+      values: AtributoType,
+      { setSubmitting, resetForm }: FormikHelpers<AtributoType>
+   ) => {
+      axiosInstance
+         .post('atributos/nuevoatributo', values)
+         .then((res) => {
+            console.log('Categoría creada:', res.data);
+            setSubmitting(false);
+            resetForm();
+            setFormSubmitted(true);
+            setTimeout(() => {
+               setFormSubmitted(false);
+            }, 2000);
+         })
+         .catch((err) => {
+            console.log(err);
+         });
+   };
 
-   const handleEditarAtributo = () => {};
+   const handleEditarAtributo = (id: number, valores: string) => {
+      const valoresArray = valores
+         .split(',')
+         .map((v) => v.trim())
+         .filter((v) => v.length > 0);
+
+      setAtributoBeingEdited(null);
+
+      axiosInstance.patch(`/atributos/editarAtributo/${id}`, {
+         valores: valoresArray,
+      });
+   };
 
    useEffect(() => {
       fetchAtributos();
    }, []);
+
+   useEffect(() => {
+      if (atributoBeingEdited === null) {
+         fetchAtributos();
+      }
+   }, [atributoBeingEdited, formSubmitted]);
 
    const handleEliminarAtributo = (id: number) => {
       axiosInstance
@@ -45,6 +88,8 @@ const Atributos = () => {
             ATRIBUTOS
          </h1>
          <div className="flex gap-10 2xl:gap-20 mt-10 h-full">
+            {/******************* FORMULARIO NUEVO ATRIBUTO **************************/}
+            {/*****************************************************************/}
             <section className="w-70 2xl:w-140">
                <Formik
                   initialValues={{
@@ -112,42 +157,96 @@ const Atributos = () => {
                   )}
                </Formik>
             </section>
+            {/******************* LISTA DE ATRIBUTOS **************************/}
+            {/*****************************************************************/}
             <section className="w-120 2xl:w-220 mt-12 2xl:mt-24">
                {atributos && atributos.length > 0 ? (
                   <ul>
                      {atributos.map((atributo) => (
-                        <li>
-                           <div className="bg-white rounded-md shadow-md p-4 flex flex-col">
-                              <div className="flex">
-                                 <h2>{atributo.nombre}</h2>
+                        <li key={atributo.id} className="mb-5">
+                           <div className="bg-white rounded-md shadow-md p-4 flex flex-col font-(family-name:--font-open-sans)">
+                              <div className="flex gap-4">
+                                 <h2 className=" text-black font-bold">
+                                    {atributo.nombre}
+                                 </h2>
                                  <button
                                     type="button"
-                                    onClick={() => handleEditarAtributo}
+                                    onClick={() => {
+                                       setAtributoBeingEdited(atributo.id);
+                                       setEdicionValores(
+                                          (atributo.valores ?? []).join(', ')
+                                       );
+                                    }}
+                                    className="ms-auto"
                                  >
                                     <Image
                                        src={'/icons/edit_green.svg'}
                                        alt="Editar"
-                                       width={20}
-                                       height={20}
+                                       width={25}
+                                       height={25}
                                        className="ms-auto"
                                     />
                                  </button>
                                  <button
                                     type="button"
                                     onClick={() =>
-                                       handleEliminarAtributo(atributo.id)
+                                       Swal.fire({
+                                          title: `¿Estás seguro que quieres eliminar el atributo <br/><span style="color: red;">${atributo.nombre}</span>?`,
+                                          text: 'Esta acción no se puede deshacer.',
+                                          icon: 'warning',
+                                          showCancelButton: true,
+                                          confirmButtonText: 'Sí, eliminar',
+                                          cancelButtonText: 'Cancelar',
+                                       }).then((result) => {
+                                          if (result.isConfirmed) {
+                                             handleEliminarAtributo(
+                                                atributo.id
+                                             );
+                                          }
+                                       })
                                     }
                                  >
                                     <Image
                                        src={'/icons/delete_red.svg'}
                                        alt="Borrar"
-                                       width={20}
-                                       height={20}
+                                       width={25}
+                                       height={25}
                                     />
                                  </button>
                               </div>
-                              <div>
-                                 <p>{atributo.valores.join(', ')}</p>
+                              <div className="mt-4 font-semibold">
+                                 {atributoBeingEdited === atributo.id ? (
+                                    <div className="flex flex-col gap-2">
+                                       <textarea
+                                          value={edicionValores}
+                                          className="border border-gray-400 text-black p-2"
+                                          onChange={(e) =>
+                                             setEdicionValores(e.target.value)
+                                          }
+                                          rows={3}
+                                       />
+                                       <button
+                                          className="text-white font-semibold bg-green-600 p-2 rounded-md"
+                                          onClick={() =>
+                                             handleEditarAtributo(
+                                                atributo.id,
+                                                edicionValores
+                                             )
+                                          }
+                                       >
+                                          Guardar
+                                       </button>
+                                    </div>
+                                 ) : Array.isArray(atributo.valores) &&
+                                   atributo.valores.length > 0 ? (
+                                    <p className="text-black">
+                                       {atributo.valores.join(', ')}
+                                    </p>
+                                 ) : (
+                                    <p className="text-gray-400 border border-gray-400 p-2 2xl:p-4 rounded-md 2xl:rounded-lg 2xl:text-3xl">
+                                       Edita el atributo para agregar valores.
+                                    </p>
+                                 )}
                               </div>
                            </div>
                         </li>
@@ -155,7 +254,7 @@ const Atributos = () => {
                   </ul>
                ) : (
                   <p className="text-orange-400 border border-orange-400 p-2 2xl:p-4 rounded-md 2xl:rounded-lg 2xl:text-3xl">
-                     No hay categorías disponibles.
+                     No hay atributos disponibles.
                   </p>
                )}
             </section>
