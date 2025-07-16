@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { validateNuevoAtributo } from '../../../../utils/validateNuevoAtributo';
 import axiosInstance from '@/services/axiosInstance';
 import Swal from 'sweetalert2';
+import fetchAtributos from '@/services/fetchAtributos';
 
 const Atributos = () => {
    const [atributos, setAtributos] = useState<AtributoType[]>([]);
@@ -16,17 +17,6 @@ const Atributos = () => {
    const [edicionValores, setEdicionValores] = useState('');
 
    console.log(atributoBeingEdited);
-
-   const fetchAtributos = () => {
-      axiosInstance
-         .get('atributos/listarAtributos')
-         .then((response) => {
-            setAtributos(response.data.data);
-         })
-         .catch((error) => {
-            console.log(error);
-         });
-   };
 
    const handleSubmit = (
       values: AtributoType,
@@ -62,24 +52,31 @@ const Atributos = () => {
    };
 
    useEffect(() => {
-      fetchAtributos();
+      const cargarAtributos = async () => {
+         const atributos = await fetchAtributos();
+         setAtributos(atributos);
+      };
+      cargarAtributos();
    }, []);
 
    useEffect(() => {
-      if (atributoBeingEdited === null) {
-         fetchAtributos();
+      if (atributoBeingEdited === null && formSubmitted) {
+         const cargarAtributos = async () => {
+            const atributos = await fetchAtributos();
+            setAtributos(atributos);
+         };
+         cargarAtributos();
       }
    }, [atributoBeingEdited, formSubmitted]);
 
-   const handleEliminarAtributo = (id: number) => {
-      axiosInstance
-         .delete(`/atributos/eliminarAtributo/${id}`)
-         .then(() => {
-            fetchAtributos();
-         })
-         .catch((err) => {
-            console.log(err);
-         });
+   const handleEliminarAtributo = async (id: number) => {
+      try {
+         await axiosInstance.delete(`/atributos/eliminarAtributo/${id}`);
+         const atributosActualizados = await fetchAtributos();
+         setAtributos(atributosActualizados);
+      } catch (error) {
+         console.log(error);
+      }
    };
 
    return (

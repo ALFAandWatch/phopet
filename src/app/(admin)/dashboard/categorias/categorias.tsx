@@ -1,15 +1,24 @@
 'use client';
 import { Formik, Field, ErrorMessage, FormikHelpers } from 'formik';
 import validateNuevaCategoria from '../../../../utils/validateNuevaCategoria';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { CategoriaType } from '@/types/categoria';
 import axiosInstance from '@/services/axiosInstance';
 import Image from 'next/image';
 import Swal from 'sweetalert2';
+import {
+   CategoriaConIndent,
+   jerarquizarCategorias,
+} from '@/utils/jerarquizarCategorias';
+import * as React from 'react';
 
 export default function Categorias() {
    const [categorias, setCategorias] = useState<CategoriaType[]>([]);
    const [formSubmitted, setFormSubmitted] = useState(false);
+
+   const categoriasJerarquizadas = useMemo(() => {
+      return jerarquizarCategorias(categorias);
+   }, [categorias]);
 
    const fetchCategorias = () => {
       axiosInstance
@@ -36,8 +45,13 @@ export default function Categorias() {
       values: CategoriaType,
       { setSubmitting, resetForm }: FormikHelpers<CategoriaType>
    ) => {
+      const payload = {
+         ...values,
+         parentId: values.parentId === 0 ? null : values.parentId,
+      };
+
       axiosInstance
-         .post('categorias/nuevaCategoria', values)
+         .post('categorias/nuevaCategoria', payload)
          .then((response) => {
             console.log('Categoría creada:', response.data);
             setSubmitting(false);
@@ -64,6 +78,21 @@ export default function Categorias() {
          });
    };
 
+   const generarOpcionesSelect = (
+      categorias: CategoriaConIndent[]
+   ): React.ReactElement[] => {
+      return categorias.flatMap((cat) => {
+         const opcion = (
+            <option key={cat.id} value={cat.id}>
+               {'-'.repeat(cat.indent)} {cat.nombre}
+            </option>
+         );
+
+         const hijos = cat.hijos ? generarOpcionesSelect(cat.hijos) : [];
+         return [opcion, ...hijos];
+      });
+   };
+
    return (
       <>
          <h1 className="text-orange-500 text-6xl 2xl:text-8xl font-(family-name:--font-bowlby-one)">
@@ -71,12 +100,12 @@ export default function Categorias() {
          </h1>
          <div className="flex gap-10 2xl:gap-20 mt-10 h-full">
             <section className="w-70 2xl:w-140">
-               <Formik
+               <Formik<CategoriaType>
                   initialValues={{
                      id: 0,
                      nombre: '',
                      slugUrl: '',
-                     categoriaPadre: '',
+                     parentId: 0,
                   }}
                   validate={validateNuevaCategoria}
                   onSubmit={handleSubmit}
@@ -129,22 +158,24 @@ export default function Categorias() {
                         </div>
                         <div className="flex flex-col mt-7">
                            <label
-                              htmlFor="categoriaPadre"
-                              className="text-black font-(family-name:--font-poppins) 2xl:p-2"
+                              htmlFor="parentId"
+                              className="text-black font-semibold"
                            >
                               Categoría Padre
                            </label>
                            <Field
-                              type="text"
-                              name="categoriaPadre"
-                              id="categoriaPadre"
-                              placeholder="Categoría Padre (opcional)"
-                              className="bg-white p-3 2xl:p-4 shadow-md rounded-md text-black placeholder:text-gray-400 mt-2"
-                           />
+                              as="select"
+                              name="parentId"
+                              id="parentId"
+                              className="bg-white p-3 shadow-md rounded-md text-black mt-2"
+                           >
+                              <option value={0}>Sin categoría padre</option>
+                              {generarOpcionesSelect(categoriasJerarquizadas)}
+                           </Field>
                            <ErrorMessage
-                              name="categoriaPadre"
+                              name="parentId"
                               component="div"
-                              className="text-red-500 text-xs 2xl:text-lg font-(family-name:--font-poppins) mt-2 2xl:p-1"
+                              className="text-red-500 text-xs mt-2"
                            />
                         </div>
                         <button

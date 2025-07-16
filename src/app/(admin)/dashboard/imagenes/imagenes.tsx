@@ -1,5 +1,6 @@
 'use client';
 
+import { useImagenes } from '@/hooks/useImagenes';
 import axiosInstance from '@/services/axiosInstance';
 import { ImagenType } from '@/types/imagen';
 import Image from 'next/image';
@@ -7,35 +8,15 @@ import { useEffect, useRef, useState } from 'react';
 
 const Imagenes = () => {
    const inputRef = useRef<HTMLInputElement | null>(null);
-
-   const [imagenes, setImagenes] = useState<ImagenType[]>([]);
    const [offset, setOffset] = useState(0);
-   const [totalImagenes, setTotalImagenes] = useState(0);
-   const limit = 10;
    const [selectImages, setSelectImages] = useState(false);
    const [imagenesSeleccionadas, setImagenesSeleccionadas] = useState<number[]>(
       []
    );
 
-   const fetchImagenes = (append = false) => {
-      const currentOffset = append ? offset : 0;
+   const { imagenes, totalImagenes, fetchImagenes } = useImagenes();
 
-      axiosInstance
-         .get(`/imagenes/listarImagenes?offset=${currentOffset}&limit=${limit}`)
-         .then((res) => {
-            const { imagenes: nuevasImagenes, total } = res.data;
-
-            setImagenes((prev) =>
-               append ? [...prev, ...nuevasImagenes] : nuevasImagenes
-            );
-
-            setTotalImagenes(total);
-            setOffset(currentOffset + nuevasImagenes.length);
-         })
-         .catch((err) => {
-            console.log(err);
-         });
-   };
+   const baseUrl = 'http://localhost:3001';
 
    useEffect(() => {
       fetchImagenes(false);
@@ -156,7 +137,7 @@ const Imagenes = () => {
                         />
                      )}
                      <Image
-                        src={`http://localhost:3001${imagen.url}`}
+                        src={`${baseUrl}${imagen.url}`}
                         fill
                         alt={`Imagen ${index + 1}`}
                      />
